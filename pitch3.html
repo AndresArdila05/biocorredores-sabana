@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioCorredores de la Sabana - Pitch Animado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: white;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .slide.active {
+            display: flex;
+            z-index: 10;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            z-index: 999;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 999;
+        }
+
+        .controls button {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .controls button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            font-size: 52px;
+            color: #fff;
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* SLIDE 1 - Portada con partículas flotantes */
+        #slide1 {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #particles1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .floating-plants {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .plant {
+            position: absolute;
+            font-size: 40px;
+            animation: float-plant 8s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .plant:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .plant:nth-child(2) { left: 85%; top: 15%; animation-delay: 1.5s; }
+        .plant:nth-child(3) { left: 15%; top: 75%; animation-delay: 3s; }
+        .plant:nth-child(4) { left: 80%; top: 70%; animation-delay: 4.5s; }
+        .plant:nth-child(5) { left: 50%; top: 10%; animation-delay: 2s; }
+        .plant:nth-child(6) { left: 40%; top: 85%; animation-delay: 5s; }
+
+        @keyframes float-plant {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(15deg); }
+        }
+
+        .butterfly {
+            position: absolute;
+            font-size: 35px;
+            animation: fly-butterfly 12s ease-in-out infinite;
+            z-index: 6;
+        }
+
+        .butterfly:nth-child(1) { animation-delay: 0s; }
+        .butterfly:nth-child(2) { animation-delay: 4s; }
+        .butterfly:nth-child(3) { animation-delay: 8s; }
+
+        @keyframes fly-butterfly {
+            0% { left: -5%; top: 30%; transform: scale(1); }
+            25% { left: 25%; top: 20%; transform: scale(1.2) rotate(10deg); }
+            50% { left: 50%; top: 60%; transform: scale(0.9) rotate(-10deg); }
+            75% { left: 75%; top: 40%; transform: scale(1.1) rotate(5deg); }
+            100% { left: 105%; top: 50%; transform: scale(1); }
+        }
+
+        .main-title {
+            font-size: 72px;
+            font-weight: bold;
+            color: #00ff88;
+            text-align: center;
+            margin: 20px 0;
+            z-index: 10;
+            text-shadow: 0 0 40px rgba(0,255,136,0.8);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 40px rgba(0,255,136,0.8); }
+            50% { text-shadow: 0 0 60px rgba(0,255,136,1), 0 0 80px rgba(0,255,136,0.6); }
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: #00ccff;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .team-info {
+            margin-top: 50px;
+            margin-bottom: 120px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(15px);
+            padding: 25px 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(74, 222, 128, 0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 10;
+            max-width: 650px;
+            pointer-events: none;
+        }
+
+        .team-info p {
+            margin: 10px 0;
+            font-size: 1.15em;
+            line-height: 1.5;
+        }
+
+        .team-info p:first-child {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4ade80;
+            margin-bottom: 12px;
+        }
+
+        .team-info p:last-child {
+            font-size: 1.05em;
+            opacity: 0.9;
+            margin-top: 12px;
+        }
+
+        .leaf-animated {
+            font-size: 100px;
+            z-index: 10;
+            animation: leaf-spin 4s ease-in-out infinite;
+            margin: 30px 0;
+        }
+
+        @keyframes leaf-spin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(10deg) scale(1.1); }
+            75% { transform: rotate(-10deg) scale(1.1); }
+        }
+
+        .floating-plants {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .plant {
+            position: absolute;
+            font-size: 40px;
+            animation: float-plant 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .plant:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .plant:nth-child(2) { left: 85%; top: 15%; animation-delay: 1s; }
+        .plant:nth-child(3) { left: 15%; top: 75%; animation-delay: 2s; }
+        .plant:nth-child(4) { left: 80%; top: 70%; animation-delay: 3s; }
+
+        @keyframes float-plant {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* Slide 2 - Contexto con números animados */
+        #slide2 {
+            background: linear-gradient(135deg, #134e4a 0%, #14532d 100%);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(74, 222, 128, 0.3);
+            animation: popIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .stat-box:nth-child(1) { animation-delay: 0.2s; }
+        .stat-box:nth-child(2) { animation-delay: 0.4s; }
+        .stat-box:nth-child(3) { animation-delay: 0.6s; }
+
+        .stat-number {
+            font-size: 4em;
+            font-weight: bold;
+            color: #4ade80;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.2) 0%, transparent 70%);
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .waste-icon {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.15;
+            animation: fall-waste 4s ease-in infinite;
+        }
+
+        .waste-icon:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .waste-icon:nth-child(2) { left: 50%; animation-delay: 1.5s; }
+        .waste-icon:nth-child(3) { left: 80%; animation-delay: 3s; }
+
+        @keyframes fall-waste {
+            0% { top: -10%; transform: rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { top: 110%; transform: rotate(360deg); opacity: 0; }
+        }
+
+        /* Slide 3 - Hallazgos */
+        #slide3 {
+            background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%);
+        }
+
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.15);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border-left: 5px solid #fbbf24;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.5s; }
+        .card:nth-child(4) { animation-delay: 0.7s; }
+
+        /* Slide 4 - Solución */
+        #slide4 {
+            background: linear-gradient(135deg, #14532d 0%, #065f46 100%);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .solution-item {
+            text-align: left;
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .solution-item:nth-child(1) { animation-delay: 0.2s; }
+        .solution-item:nth-child(2) { animation-delay: 0.4s; }
+        .solution-item:nth-child(3) { animation-delay: 0.6s; }
+        .solution-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        #slide4::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            animation: pulse-bg 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* Slide 5 - Ciclos Regenerativos */
+        #slide5 {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .cycle-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 60px;
+            gap: 60px;
+        }
+
+        .cycle {
+            flex: 1;
+            background: rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 3px solid #60a5fa;
+            animation: scaleIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .cycle:nth-child(1) { animation-delay: 0.3s; }
+        .cycle:nth-child(2) { animation-delay: 0.6s; }
+
+        .cycle-number {
+            font-size: 5em;
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .cycle-circle {
+            position: relative;
+            border: 4px dashed #60a5fa;
+            animation: rotate-border 15s linear infinite;
+        }
+
+        @keyframes rotate-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cycle-content {
+            animation: rotate-border-reverse 15s linear infinite;
+        }
+
+        @keyframes rotate-border-reverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .infinity-symbol {
+            font-size: 80px;
+            color: #00ccff;
+            animation: infinity-pulse 2s ease-in-out infinite;
+            margin: 0 30px;
+        }
+
+        @keyframes infinity-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        #slide5::after {
+            content: '♻️';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.15;
+            animation: rotate-recycle 20s linear infinite;
+        }
+
+        @keyframes rotate-recycle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Slide 6 - Beneficios Ambientales */
+        #slide6 {
+            background: linear-gradient(135deg, #065f46 0%, #059669 100%);
+        }
+
+        .benefits-list {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 900px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            background: rgba(255,255,255,0.1);
+            padding: 25px 40px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 6px solid #10b981;
+            animation: slideInRight 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .benefit-item:nth-child(1) { animation-delay: 0.2s; }
+        .benefit-item:nth-child(2) { animation-delay: 0.4s; }
+        .benefit-item:nth-child(3) { animation-delay: 0.6s; }
+        .benefit-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .benefit-item p::before {
+            content: '✓ ';
+            color: #10b981;
+            font-size: 1.5em;
+            font-weight: bold;
+            animation: check-pop 0.5s ease-in-out;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        @keyframes check-pop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-leaves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 30px;
+            animation: fall-leaf 8s ease-in-out infinite;
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 90%; animation-delay: 1s; }
+
+        @keyframes fall-leaf {
+            0% { top: -10%; transform: rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { top: 110%; transform: rotate(360deg); opacity: 0; }
+        }
+
+        /* Slide 7 - Beneficios Sociales */
+        #slide7 {
+            background: linear-gradient(135deg, #7c2d12 0%, #ea580c 100%);
+        }
+
+        /* Slide 8 - Propuesta de Valor */
+        #slide8 {
+            background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            margin-top: 60px;
+            max-width: 1400px;
+        }
+
+        .value-card {
+            background: rgba(255,255,255,0.15);
+            padding: 50px 45px;
+            border-radius: 28px;
+            border: 3px solid #a855f7;
+            animation: bounceIn 0.9s ease-out forwards;
+            opacity: 0;
+        }
+
+        .value-card:nth-child(1) { animation-delay: 0.2s; }
+        .value-card:nth-child(2) { animation-delay: 0.4s; }
+        .value-card:nth-child(3) { animation-delay: 0.6s; }
+        .value-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .value-card h3 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+
+        .value-card p {
+            font-size: 1.5em;
+            line-height: 1.5;
+        }
+
+        .value-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 25px;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
+        .star:nth-child(2) { left: 85%; top: 25%; animation-delay: 1s; }
+        .star:nth-child(3) { left: 25%; top: 70%; animation-delay: 2s; }
+        .star:nth-child(4) { left: 75%; top: 75%; animation-delay: 1.5s; }
+        .star:nth-child(5) { left: 50%; top: 15%; animation-delay: 0.5s; }
+        .star:nth-child(6) { left: 10%; top: 50%; animation-delay: 2.5s; }
+        .star:nth-child(7) { left: 90%; top: 55%; animation-delay: 0.8s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Slide 9 - Ecosistema */
+        #slide9 {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+
+        .ecosystem-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+            max-width: 1400px;
+        }
+
+        .ecosystem-section {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .ecosystem-section:nth-child(1) { animation-delay: 0.3s; }
+        .ecosystem-section:nth-child(2) { animation-delay: 0.6s; }
+
+        .ecosystem-list {
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 25px;
+            font-size: 1.25em;
+            line-height: 2;
+        }
+
+        .ecosystem-section h3 {
+            animation: float-up-down 3s ease-in-out infinite;
+            font-size: 2em;
+        }
+
+        .ecosystem-section:nth-child(2) h3 {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        #slide9::before {
+            content: '🏢';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.05;
+            left: 10%;
+            top: 20%;
+            animation: building-grow 3s ease-in-out infinite;
+        }
+
+        #slide9::after {
+            content: '🤝';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.05;
+            right: 10%;
+            bottom: 20%;
+            animation: building-grow 3s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes building-grow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .floating-buildings {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .building-icon {
+            position: absolute;
+            font-size: 35px;
+            animation: float-building 6s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        .building-icon:nth-child(1) { left: 10%; top: 15%; animation-delay: 0s; }
+        .building-icon:nth-child(2) { left: 88%; top: 20%; animation-delay: 2s; }
+        .building-icon:nth-child(3) { left: 12%; top: 78%; animation-delay: 4s; }
+        .building-icon:nth-child(4) { left: 85%; top: 75%; animation-delay: 1s; }
+        .building-icon:nth-child(5) { left: 45%; top: 12%; animation-delay: 3s; }
+
+        @keyframes float-building {
+            0%, 100% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(-25px); opacity: 0.7; }
+        }
+
+        /* Slide 10 - Operación */
+        #slide10 {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        }
+
+        .operation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .operation-grid .card h3 {
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+
+        .operation-grid .card:nth-child(2) h3 { animation-delay: 0.7s; }
+        .operation-grid .card:nth-child(3) h3 { animation-delay: 1.4s; }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Slide 11 - Canales */
+        #slide11 {
+            background: linear-gradient(135deg, #be123c 0%, #e11d48 100%);
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1400px;
+        }
+
+        .channel-box {
+            background: rgba(255,255,255,0.15);
+            padding: 45px;
+            border-radius: 20px;
+            animation: popIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .channel-box:nth-child(1) { animation-delay: 0.2s; }
+        .channel-box:nth-child(2) { animation-delay: 0.4s; }
+        .channel-box:nth-child(3) { animation-delay: 0.6s; }
+        .channel-box:nth-child(4) { animation-delay: 0.8s; }
+
+        .channel-box h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .channel-box p {
+            font-size: 1.3em;
+            line-height: 1.6;
+        }
+
+        .floating-flowers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 35px;
+            animation: fall-flower 10s ease-in infinite;
+        }
+
+        .flower:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .flower:nth-child(2) { left: 25%; animation-delay: 2s; }
+        .flower:nth-child(3) { left: 45%; animation-delay: 4s; }
+        .flower:nth-child(4) { left: 65%; animation-delay: 6s; }
+        .flower:nth-child(5) { left: 80%; animation-delay: 1s; }
+        .flower:nth-child(6) { left: 35%; animation-delay: 5s; }
+
+        @keyframes fall-flower {
+            0% { top: -10%; opacity: 0; transform: rotate(0deg); }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { top: 110%; opacity: 0; transform: rotate(360deg); }
+        }
+
+        /* Slide 12 - Estructura Financiera */
+        #slide12 {
+            background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+        }
+
+        .financial-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .financial-section {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 25px;
+            animation: slideInLeft 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .financial-section:nth-child(2) {
+            animation: slideInRight 1s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        .financial-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            animation: fill-bar 3s ease-in-out infinite;
+        }
+
+        @keyframes fill-bar {
+            0%, 100% { width: 0%; }
+            50% { width: 100%; }
+        }
+
+        .financial-section li {
+            animation: slide-in-item 0.5s ease-in-out forwards;
+            opacity: 0;
+            position: relative;
+        }
+
+        .financial-section li:nth-child(1) { animation-delay: 0.5s; }
+        .financial-section li:nth-child(2) { animation-delay: 0.7s; }
+        .financial-section li:nth-child(3) { animation-delay: 0.9s; }
+        .financial-section li:nth-child(4) { animation-delay: 1.1s; }
+
+        @keyframes slide-in-item {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #slide12::before {
+            content: '⚖️';
+            position: absolute;
+            font-size: 180px;
+            opacity: 0.08;
+            animation: scale-balance 4s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes scale-balance {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .floating-coins {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .coin {
+            position: absolute;
+            font-size: 35px;
+            animation: spin-coin 4s ease-in-out infinite;
+        }
+
+        .coin:nth-child(1) { left: 10%; top: 25%; animation-delay: 0s; }
+        .coin:nth-child(2) { left: 85%; top: 30%; animation-delay: 1s; }
+        .coin:nth-child(3) { left: 15%; top: 70%; animation-delay: 2s; }
+        .coin:nth-child(4) { left: 80%; top: 65%; animation-delay: 0.5s; }
+        .coin:nth-child(5) { left: 50%; top: 20%; animation-delay: 1.5s; }
+
+        @keyframes spin-coin {
+            0%, 100% { transform: rotateY(0deg); opacity: 0.5; }
+            50% { transform: rotateY(180deg); opacity: 0.8; }
+        }
+
+        /* Slide 13 - Impacto */
+        #slide13 {
+            background: linear-gradient(135deg, #701a75 0%, #86198f 100%);
+        }
+
+        .impact-list {
+            margin-top: 50px;
+        }
+
+        .impact-item {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 20px;
+            border-left: 6px solid #d946ef;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .impact-item:nth-child(1) { animation-delay: 0.2s; }
+        .impact-item:nth-child(2) { animation-delay: 0.4s; }
+        .impact-item:nth-child(3) { animation-delay: 0.6s; }
+        .impact-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .ripple-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .ripple {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(217, 70, 239, 0.6);
+            border-radius: 50%;
+            animation: ripple-out 3s ease-out infinite;
+        }
+
+        .ripple:nth-child(2) { animation-delay: 1s; }
+        .ripple:nth-child(3) { animation-delay: 2s; }
+
+        @keyframes ripple-out {
+            0% {
+                width: 100px;
+                height: 100px;
+                opacity: 1;
+            }
+            100% {
+                width: 800px;
+                height: 800px;
+                opacity: 0;
+            }
+        }
+
+        /* Slide 14 - Cierre */
+        #slide14 {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+        }
+
+        #slide14 h1 {
+            font-size: 5em;
+            background: linear-gradient(45deg, #4ade80, #22d3ee, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% {
+                filter: brightness(1);
+                transform: scale(1);
+            }
+            50% {
+                filter: brightness(1.3);
+                transform: scale(1.02);
+            }
+        }
+
+        #fireworks-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #slide14 .slide-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .celebration-emoji {
+            position: absolute;
+            font-size: 60px;
+            animation: celebrate 3s ease-in-out infinite;
+        }
+
+        .celebration-emoji:nth-child(1) { left: 10%; top: 15%; animation-delay: 0s; }
+        .celebration-emoji:nth-child(2) { right: 10%; top: 20%; animation-delay: 1s; }
+        .celebration-emoji:nth-child(3) { left: 15%; bottom: 25%; animation-delay: 2s; }
+        .celebration-emoji:nth-child(4) { right: 15%; bottom: 20%; animation-delay: 1.5s; }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+            50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+        }
+
+        /* Navegación */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            font-size: 1.3em;
+        }
+
+        /* Animaciones */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+
+        /* Partículas de fondo */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-100px) translateX(50px);
+            }
+            50% {
+                transform: translateY(-50px) translateX(-50px);
+            }
+            75% {
+                transform: translateY(-150px) translateX(100px);
+            }
+        }
+
+        /* Lista sin puntos */
+        ul {
+            list-style: none;
+        }
+
+        li::before {
+            content: "✓ ";
+            color: #4ade80;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* RESPONSIVIDAD */
+        .slide {
+            overflow: hidden;
+        }
+
+        @media (max-height: 900px) {
+            .section-title {
+                font-size: 2.2em;
+                margin-bottom: 25px;
+            }
+
+            .main-title {
+                font-size: 3em;
+            }
+
+            .stats-container,
+            .grid-2x2,
+            .solution-grid,
+            .value-grid,
+            .ecosystem-container,
+            .operation-grid,
+            .financial-container {
+                gap: 15px;
+                margin-top: 25px;
+            }
+
+            .stat-box,
+            .card,
+            .value-card,
+            .benefit-item,
+            .financial-section {
+                padding: 15px 20px;
+            }
+
+            p, li {
+                font-size: 0.95em;
+                margin-bottom: 8px;
+                line-height: 1.4;
+            }
+
+            h3 {
+                font-size: 1.2em;
+                margin-bottom: 8px;
+            }
+
+            .cycle {
+                padding: 25px;
+            }
+
+            .cycle-number {
+                font-size: 2.5em;
+            }
+
+            .icon {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-height: 750px) {
+            .section-title {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            .stats-container,
+            .grid-2x2,
+            .solution-grid,
+            .value-grid,
+            .ecosystem-container,
+            .operation-grid,
+            .financial-container,
+            .benefits-list,
+            .impact-list {
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .stat-box,
+            .card,
+            .value-card,
+            .benefit-item,
+            .impact-item,
+            .financial-section {
+                padding: 12px 15px;
+            }
+
+            p, li {
+                font-size: 0.85em;
+                margin-bottom: 6px;
+                line-height: 1.3;
+            }
+
+            h3 {
+                font-size: 1em;
+                margin-bottom: 6px;
+            }
+
+            .cycle {
+                padding: 20px;
+            }
+
+            .cycle-number {
+                font-size: 2em;
+            }
+
+            .icon {
+                font-size: 2em;
+                margin-bottom: 8px;
+            }
+
+            .stat-number {
+                font-size: 2.5em;
+            }
+
+            .infinity-symbol {
+                font-size: 50px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .channels-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-container,
+            .grid-2x2,
+            .solution-grid,
+            .value-grid,
+            .ecosystem-container,
+            .operation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .financial-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cycle-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .infinity-symbol {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Portada -->
+    <div class="slide active" id="slide1">
+        <canvas id="particles1"></canvas>
+        <div class="floating-plants">
+            <div class="plant">🌿</div>
+            <div class="plant">🌱</div>
+            <div class="plant">🌺</div>
+            <div class="plant">🌼</div>
+            <div class="plant">🌻</div>
+            <div class="plant">🍀</div>
+        </div>
+        <div class="floating-plants">
+            <div class="butterfly">🦋</div>
+            <div class="butterfly">🦋</div>
+            <div class="butterfly">🦋</div>
+        </div>
+        <div class="leaf-animated">🍃</div>
+        <h1 class="main-title">BioCorredores<br>de la Sabana</h1>
+        <p class="subtitle">Renaturalización urbana regenerativa</p>
+        <div class="team-info">
+            <p>Equipo</p>
+            <p style="font-size: 1.4em; color: white; font-weight: normal;">Andrés Camilo Ardila Díaz<br>Andrés Felipe Herrera Herrera</p>
+            <p>Universidad Nacional de Colombia<br>Sistemas Industriales Sostenibles</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Contexto del Problema -->
+    <div class="slide" id="slide2">
+        <div class="floating-plants">
+            <div class="waste-icon">🗑️</div>
+            <div class="waste-icon">🍎</div>
+            <div class="waste-icon">🥬</div>
+        </div>
+        <h2 class="section-title">Contexto del Problema</h2>
+        <p style="font-size: 1.4em; margin-bottom: 20px; z-index: 10; max-width: 1100px;">Las ciudades contemporáneas enfrentan una gestión ineficiente de residuos orgánicos y déficit de áreas verdes</p>
+        <div class="stats-container">
+            <div class="stat-box">
+                <span class="stat-number counter" data-target="60">0</span>
+                <p style="font-size: 1.1em;"><strong>% de residuos orgánicos</strong><br>podrían tratarse pero terminan en rellenos sanitarios</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number counter" data-target="4.9">0</span>
+                <p style="font-size: 1.1em;"><strong>m² por habitante</strong><br>en Bogotá vs 9 m² recomendados por la OMS</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number counter" data-target="35">0</span>
+                <p style="font-size: 1.1em;"><strong>% de terrazas urbanas</strong><br>aptas para infraestructura verde</p>
+            </div>
+        </div>
+        <p style="font-size: 1.2em; margin-top: 40px; z-index: 10; max-width: 1000px; opacity: 0.9;">Esta desconexión evidencia un metabolismo urbano lineal que no cierra ciclos naturales</p>
+    </div>
+
+    <!-- Slide 3: Hallazgos Clave -->
+    <div class="slide" id="slide3">
+        <div class="floating-leaves">
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+        </div>
+        <h2 class="section-title">Hallazgos Clave</h2>
+        <div class="grid-2x2" style="max-width: 1200px;">
+            <div class="card">
+                <h3>🗑️ Gestión Ineficiente</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Las plazas de mercado generan grandes volúmenes de residuos orgánicos. Más del 60% podría tratarse, pero en su mayoría se destinan a rellenos sanitarios dentro de un sistema lineal.</p>
+            </div>
+            <div class="card">
+                <h3>🌱 Escasez Verde</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">La superficie de espacio verde por habitante está por debajo del estándar mínimo de 9 m². Esta carencia limita los beneficios ecológicos y sociales de la vegetación.</p>
+            </div>
+            <div class="card">
+                <h3>💔 Desconexión Metabólica</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">El metabolismo urbano opera de forma lineal y no cíclica, sin integrar los ciclos naturales de nutrientes y biodiversidad.</p>
+            </div>
+            <div class="card">
+                <h3>💡 Solución Potencial</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Utilizar superficies infrautilizadas (azoteas) con sustratos de residuos orgánicos puede cerrar ciclos y avanzar hacia un modelo regenerativo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Nuestra Solución -->
+    <div class="slide" id="slide4">
+        <div class="floating-leaves">
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+        </div>
+        <h2 class="section-title">BioCorredores de la Sabana</h2>
+        <p style="font-size: 1.4em; max-width: 1100px; margin-bottom: 30px; z-index: 10; position: relative;">Servicio integral de renaturalización urbana que transforma techos y terrazas en ecosistemas funcionales</p>
+        <div class="solution-grid" style="max-width: 1200px; position: relative; z-index: 10;">
+            <div class="solution-item">
+                <span class="icon">🏢</span>
+                <h3 style="font-size: 1.5em; color: #4ade80; margin-bottom: 15px;">Techos Vivos</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Transformación de terrazas grises en ecosistemas funcionales mediante diseño e instalación de jardines nativos.</p>
+            </div>
+            <div class="solution-item">
+                <span class="icon">🌍</span>
+                <h3 style="font-size: 1.5em; color: #4ade80; margin-bottom: 15px;">Sustrato Circular</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Fabricamos nuestro propio sustrato vivo procesando residuos orgánicos de plazas de mercado, cerrando el ciclo de nutrientes.</p>
+            </div>
+            <div class="solution-item">
+                <span class="icon">🦋</span>
+                <h3 style="font-size: 1.5em; color: #4ade80; margin-bottom: 15px;">Conectividad Ecológica</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Creamos redes ecológicas urbanas que atraen polinizadores nativos y restauran la biodiversidad perdida.</p>
+            </div>
+            <div class="solution-item">
+                <span class="icon">🌺</span>
+                <h3 style="font-size: 1.5em; color: #4ade80; margin-bottom: 15px;">Identidad Nativa</h3>
+                <p style="font-size: 1.15em; line-height: 1.6;">Jardines exclusivos con especies del bosque altoandino como Salvia bogotensis y Mutisia, con genética local.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Ciclos Regenerativos -->
+    <div class="slide" id="slide5">
+        <h2 class="section-title">Dos Ciclos Regenerativos Integrados</h2>
+        <p style="font-size: 1.3em; max-width: 1000px; margin-bottom: 30px; z-index: 10; position: relative;">Operamos bajo el arquetipo de regeneración de la naturaleza (Das & Bocken, 2024)</p>
+        <div class="cycle-container" style="max-width: 1300px; position: relative; z-index: 10;">
+            <div class="cycle cycle-circle">
+                <div class="cycle-content">
+                    <div class="cycle-number">1</div>
+                    <h3 style="color: #fff; font-size: 1.6em; margin-bottom: 15px;">Ciclo de Nutrientes</h3>
+                    <p style="font-size: 1.1em; color: rgba(255,255,255,0.95); line-height: 1.6;">Cerramos el ciclo de la materia orgánica mediante compostaje técnico. Transformamos residuos recuperados de plazas de mercado en sustrato vivo de alta calidad, regenerando la salud del suelo urbano y desviándolos de rellenos sanitarios.</p>
+                </div>
+            </div>
+            <div class="infinity-symbol">∞</div>
+            <div class="cycle cycle-circle">
+                <div class="cycle-content">
+                    <div class="cycle-number">2</div>
+                    <h3 style="color: #fff; font-size: 1.6em; margin-bottom: 15px;">Ciclo Biológico</h3>
+                    <p style="font-size: 1.1em; color: rgba(255,255,255,0.95); line-height: 1.6;">Activamos el ciclo biológico con especies exclusivas del bosque altoandino, seleccionadas para atraer polinizadores nativos y restaurar la conectividad ecológica perdida en la ciudad.</p>
+                </div>
+            </div>
+        </div>
+        <p style="font-size: 1.2em; margin-top: 30px; z-index: 10; position: relative; opacity: 0.9; max-width: 900px;">Ambos ciclos operan simultáneamente, integrando economía circular con restauración de biodiversidad</p>
+    </div>
+
+    <!-- Slide 6: Beneficios Ambientales -->
+    <div class="slide" id="slide6">
+        <div class="floating-leaves">
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🍂</div>
+        </div>
+        <h2 class="section-title">Beneficios Ambientales Verificables</h2>
+        <div class="benefits-list" style="max-width: 1100px;">
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Circuito cerrado de nutrientes:</strong> Transformación de residuos orgánicos en sustrato vivo, desviando desechos de rellenos sanitarios y reduciendo emisiones de metano</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Restauración de biodiversidad:</strong> Especies nativas crean hábitats para polinizadores, aumentando la biodiversidad urbana de forma medible</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Mitigación del efecto isla de calor:</strong> Los techos verdes reducen temperatura superficial y ambiente, mejorando el microclima urbano</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Gestión de aguas lluvias:</strong> Retención de escorrentía superficial, reduciendo presión sobre sistemas de drenaje urbano</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Beneficios Sociales -->
+    <div class="slide" id="slide7">
+        <h2 class="section-title">Beneficios Sociales y Urbanos</h2>
+        <div class="benefits-list" style="max-width: 1100px;">
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Incremento de acceso a espacios verdes:</strong> Contribuye al bienestar mental y físico de ciudadanos, acercándose al estándar de 9 m² por habitante</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Resiliencia urbana:</strong> Fortalece la capacidad de adaptación de la ciudad ante el cambio climático y eventos extremos</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Economía circular y empleo verde:</strong> Genera oportunidades laborales vinculadas a gestión de residuos y mantenimiento de infraestructura verde</p>
+            </div>
+            <div class="benefit-item">
+                <p style="font-size: 1.2em;"><strong>Transformación de pasivos en activos:</strong> Convierte superficies inertes en activos ecológicos productivos, promoviendo desarrollo urbano regenerativo</p>
+            </div>
+        </div>
+        <p style="font-size: 1.2em; margin-top: 30px; z-index: 10; position: relative; opacity: 0.9; max-width: 900px;">Un modelo que reconcilia el funcionamiento urbano con los ciclos naturales</p>
+    </div>
+
+    <!-- Slide 8: Propuesta de Valor -->
+    <div class="slide" id="slide8">
+        <div class="floating-stars">
+            <div class="star">✨</div>
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+        </div>
+        <div class="slide-content">
+            <h2>Propuesta de Valor</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <h3>🔬 Restauración Verificable</h3>
+                    <p>Impacto real y medible en el ecosistema</p>
+                </div>
+                <div class="value-card">
+                    <h3>🏔️ Identidad Local</h3>
+                    <p>Diseño exclusivo con flora altoandina</p>
+                </div>
+                <div class="value-card">
+                    <h3>♻️ Sustrato Circular</h3>
+                    <p>Cero residuos, máxima fertilidad</p>
+                </div>
+                <div class="value-card">
+                    <h3>📊 Ciencia Aplicada</h3>
+                    <p>Monitoreo continuo de biodiversidad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Ecosistema de Negocio -->
+    <div class="slide" id="slide9">
+        <div class="floating-buildings">
+            <div class="building-icon">🏢</div>
+            <div class="building-icon">🏗️</div>
+            <div class="building-icon">🏛️</div>
+            <div class="building-icon">🏬</div>
+            <div class="building-icon">🏭</div>
+        </div>
+        <div class="slide-content">
+            <h2>Ecosistema de Negocio</h2>
+            <div class="ecosystem-container">
+                <div class="ecosystem-section">
+                    <h3 style="color: #60a5fa;">Segmentos de Clientes</h3>
+                    <div class="ecosystem-list">
+                        <p>• Constructoras y desarrolladores urbanos</p>
+                        <p>• Empresas corporativas con metas ESG</p>
+                        <p>• Instituciones públicas y gubernamentales</p>
+                    </div>
+                </div>
+                <div class="ecosystem-section">
+                    <h3 style="color: #60a5fa;">Socios Clave</h3>
+                    <div class="ecosystem-list">
+                        <p>• Plazas de mercado y UAESP (Residuos)</p>
+                        <p>• Universidades (Investigación)</p>
+                        <p>• ONGs y redes de viveristas nativos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Operación -->
+    <div class="slide" id="slide10">
+        <canvas id="network-canvas"></canvas>
+        <h2 class="section-title">Operación</h2>
+        <div class="operation-grid">
+            <div class="card">
+                <h3>👥 Equipo Técnico</h3>
+                <p>Biólogos, agrónomos y paisajistas especializados</p>
+            </div>
+            <div class="card">
+                <h3>🚚 Logística Residuos</h3>
+                <p>Gestión y compostaje de residuos orgánicos</p>
+            </div>
+            <div class="card">
+                <h3>🌿 Banco Semillas</h3>
+                <p>Inventario de plantas nativas y propagación</p>
+            </div>
+        </div>
+        <div class="stat-box" style="margin-top: 50px; animation-delay: 0.9s; position: relative; z-index: 10;">
+            <p>Monitoreo de indicadores de impacto: temperatura, especies avistadas, y más</p>
+        </div>
+    </div>
+
+    <!-- Slide 11: Canales y Relación -->
+    <div class="slide" id="slide11">
+        <div class="floating-flowers">
+            <div class="flower">🌸</div>
+            <div class="flower">🌺</div>
+            <div class="flower">🌼</div>
+            <div class="flower">🌻</div>
+            <div class="flower">💐</div>
+            <div class="flower">🌷</div>
+        </div>
+        <div class="slide-content">
+            <h2>Canales y Relación</h2>
+            <div class="channels-grid">
+                <div class="channel-box">
+                    <h3>💼 Venta B2B</h3>
+                    <p>Consultiva y directa</p>
+                </div>
+                <div class="channel-box">
+                    <h3>🤝 Alianzas</h3>
+                    <p>Con firmas de arquitectura</p>
+                </div>
+                <div class="channel-box">
+                    <h3>🎨 Co-creación</h3>
+                    <p>Diseño participativo</p>
+                </div>
+                <div class="channel-box">
+                    <h3>📅 Largo Plazo</h3>
+                    <p>Contratos de mantenimiento</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Estructura Financiera -->
+    <div class="slide" id="slide12">
+        <div class="floating-coins">
+            <div class="coin">💰</div>
+            <div class="coin">💵</div>
+            <div class="coin">💰</div>
+            <div class="coin">💵</div>
+            <div class="coin">💰</div>
+        </div>
+        <h2 class="section-title">Modelo Financiero Sostenible</h2>
+        <div class="financial-container" style="max-width: 1200px; position: relative; z-index: 10;">
+            <div class="financial-section">
+                <h3 style="color: #ef4444; font-size: 1.8em; margin-bottom: 25px;">💰 Estructura de Costos</h3>
+                <ul style="text-align: left; margin-top: 20px; font-size: 1.15em; line-height: 2;">
+                    <li><strong>Logística:</strong> Recolección y transporte de residuos y sustratos</li>
+                    <li><strong>Talento:</strong> Mano de obra especializada (jardinería técnica, biólogos)</li>
+                    <li><strong>Certificación:</strong> Análisis de laboratorio y permisos</li>
+                    <li><strong>Producción:</strong> Procesamiento de sustrato y propagación de plantas</li>
+                </ul>
+            </div>
+            <div class="financial-section">
+                <h3 style="color: #10b981; font-size: 1.8em; margin-bottom: 25px;">💵 Fuentes de Ingresos</h3>
+                <ul style="text-align: left; margin-top: 20px; font-size: 1.15em; line-height: 2;">
+                    <li><strong>Instalación:</strong> Tarifa por diseño e instalación del proyecto (pago único)</li>
+                    <li><strong>Mantenimiento:</strong> Suscripción mensual de mantenimiento (ingreso recurrente)</li>
+                    <li><strong>Monitoreo:</strong> Reportes de biodiversidad y sostenibilidad</li>
+                    <li><strong>Consultoría:</strong> Asesoría en reportes ESG y certificaciones</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: Impacto Esperado -->
+    <div class="slide" id="slide13">
+        <div class="ripple-container">
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+        </div>
+        <h2 class="section-title">Impacto Transformador</h2>
+        <p style="font-size: 1.5em; margin-bottom: 30px; z-index: 10; position: relative; max-width: 1000px;">Nuestra visión: transformar la ciudad gris en un ecosistema vivo y regenerativo</p>
+        <div class="impact-list" style="max-width: 1100px; position: relative; z-index: 10;">
+            <div class="impact-item">
+                <p style="font-size: 1.2em;"><strong>🌍 Reducción del impacto ambiental urbano:</strong> Disminución de residuos en rellenos, emisiones de metano y temperatura superficial</p>
+            </div>
+            <div class="impact-item">
+                <p style="font-size: 1.2em;"><strong>♻️ Integración real de ciclos:</strong> Unión funcional entre gestión de residuos orgánicos y restauración de biodiversidad nativa</p>
+            </div>
+            <div class="impact-item">
+                <p style="font-size: 1.2em;"><strong>🦋 Corredores ecológicos urbanos:</strong> Red de hábitats conectados que permiten el movimiento de polinizadores y fauna nativa</p>
+            </div>
+            <div class="impact-item">
+                <p style="font-size: 1.2em;"><strong>🌱 Transformación cultural:</strong> Cambio en la percepción ciudadana sobre residuos, biodiversidad y la relación ciudad-naturaleza</p>
+            </div>
+            <div class="impact-item">
+                <p style="font-size: 1.2em;"><strong>🏙️ Modelo replicable:</strong> Demostración de viabilidad de urbanismo regenerativo para otras ciudades colombianas y latinoamericanas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 14: Cierre -->
+    <div class="slide" id="slide14">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="floating-plants">
+            <div class="celebration-emoji">🎉</div>
+            <div class="celebration-emoji">🎈</div>
+            <div class="celebration-emoji">✨</div>
+            <div class="celebration-emoji">🎆</div>
+        </div>
+        <div class="slide-content">
+            <h1>BioCorredores<br>de la Sabana</h1>
+            <p style="font-size: 2em; margin-top: 60px;">Una solución regenerativa que devuelve vida a la ciudad</p>
+            <p style="font-size: 2.5em; margin-top: 80px; font-weight: bold;">¡Gracias!</p>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-number" id="slideNumber">1 / 14</div>
+    
+    <div class="controls">
+        <button id="prevBtn" onclick="previousSlide()">← Anterior</button>
+        <button id="nextBtn" onclick="nextSlide()">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 14;
+
+        // Particles animation for slide 1
+        function initParticles() {
+            const canvas = document.getElementById('particles1');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedY: Math.random() * 1 + 0.5,
+                    speedX: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(p => {
+                    ctx.fillStyle = 'rgba(0, 255, 136, 0.8)';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    p.y -= p.speedY;
+                    p.x += p.speedX;
+
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            animateParticles();
+        }
+
+        // Counter animation for slide 2
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current * 10) / 10;
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Network animation for slide 10
+        function initNetwork() {
+            const canvas = document.getElementById('network-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const nodes = [
+                { x: canvas.width * 0.25, y: canvas.height * 0.5 },
+                { x: canvas.width * 0.5, y: canvas.height * 0.5 },
+                { x: canvas.width * 0.75, y: canvas.height * 0.5 }
+            ];
+
+            let time = 0;
+
+            function drawNetwork() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw connections
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = 2;
+                
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const pulse = Math.sin(time * 0.05) * 0.5 + 0.5;
+                        ctx.globalAlpha = pulse * 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.globalAlpha = 1;
+                time++;
+                requestAnimationFrame(drawNetwork);
+            }
+
+            drawNetwork();
+        }
+
+        // Fireworks for slide 14
+        function initFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+
+            function createFirework() {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.5;
+                const colors = ['#00ff88', '#00ccff', '#ff4757', '#ffa502'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                for (let i = 0; i < 30; i++) {
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.5) * 8,
+                        life: 100,
+                        color: color
+                    });
+                }
+            }
+
+            function animateFireworks() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach((p, index) => {
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.life / 100;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.1;
+                    p.life -= 1;
+
+                    if (p.life <= 0) {
+                        particles.splice(index, 1);
+                    }
+                });
+
+                ctx.globalAlpha = 1;
+
+                if (Math.random() < 0.05) {
+                    createFirework();
+                }
+
+                requestAnimationFrame(animateFireworks);
+            }
+
+            animateFireworks();
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            document.getElementById('slide' + currentSlide).classList.add('active');
+            
+            // Initialize slide-specific animations
+            if (currentSlide === 1) {
+                setTimeout(initParticles, 100);
+            } else if (currentSlide === 2) {
+                setTimeout(animateCounters, 300);
+            } else if (currentSlide === 10) {
+                setTimeout(initNetwork, 100);
+            } else if (currentSlide === 14) {
+                setTimeout(initFireworks, 100);
+            }
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('slideNumber').textContent = currentSlide + ' / ' + totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            if (currentSlide < 1) currentSlide = 1;
+            showSlide(currentSlide);
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide > totalSlides) {
+                currentSlide = 1;
+            }
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            if (currentSlide < 1) {
+                currentSlide = totalSlides;
+            }
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (currentSlide === 1) initParticles();
+            if (currentSlide === 10) initNetwork();
+            if (currentSlide === 14) initFireworks();
+        });
+
+        // Inicializar
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
