@@ -392,58 +392,44 @@
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
 
-        .cycle-container {
+        .slide5-content-wrapper {
             display: flex;
-            justify-content: space-around;
-            margin-top: 60px;
-            gap: 60px;
-        }
-
-        .cycle {
-            flex: 1;
-            background: rgba(255,255,255,0.1);
-            padding: 50px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            border: 3px solid #60a5fa;
-            animation: scaleIn 1s ease-out forwards;
-            opacity: 0;
-        }
-
-        .cycle:nth-child(1) { animation-delay: 0.3s; }
-        .cycle:nth-child(2) { animation-delay: 0.6s; }
-
-        .cycle-number {
-            font-size: 5em;
-            color: #60a5fa;
-            font-weight: bold;
-        }
-
-        .cycle-circle {
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin-top: 20px;
+            margin-bottom: 20px;
             position: relative;
-            border: 4px dashed #60a5fa;
-            animation: rotate-border 15s linear infinite;
+            z-index: 10;
         }
 
-        @keyframes rotate-border {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .diagram-container {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            position: relative;
         }
 
-        .cycle-content {
-            animation: rotate-border-reverse 15s linear infinite;
-        }
-
-        @keyframes rotate-border-reverse {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
+        .diagram-container img {
+            max-width: 500px;
+            max-height: 400px;
+            width: auto;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border: 2px solid rgba(96, 165, 250, 0.4);
         }
 
         .infinity-symbol {
             font-size: 80px;
             color: #00ccff;
             animation: infinity-pulse 2s ease-in-out infinite;
-            margin: 0 30px;
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
         }
 
         @keyframes infinity-pulse {
@@ -1001,7 +987,7 @@
             z-index: 1;
         }
 
-        #slide14 .slide-content {
+        #slide15 .slide-content {
             position: relative;
             z-index: 10;
         }
@@ -1471,26 +1457,15 @@
 
     <!-- Slide 5: Ciclos Regenerativos -->
     <div class="slide" id="slide5">
-        <h2 class="section-title">Dos Ciclos Regenerativos Integrados</h2>
-        <p style="font-size: 1.3em; max-width: 1000px; margin-bottom: 30px; z-index: 10; position: relative;">Operamos bajo el arquetipo de regeneración de la naturaleza (Das & Bocken, 2024)</p>
-        <div class="cycle-container" style="max-width: 1300px; position: relative; z-index: 10;">
-            <div class="cycle cycle-circle">
-                <div class="cycle-content">
-                    <div class="cycle-number">1</div>
-                    <h3 style="color: #fff; font-size: 1.6em; margin-bottom: 15px;">Ciclo de Nutrientes</h3>
-                    <p style="font-size: 1.1em; color: rgba(255,255,255,0.95); line-height: 1.6;">Cerramos el ciclo de la materia orgánica mediante compostaje técnico. Transformamos residuos recuperados de plazas de mercado en sustrato vivo de alta calidad, regenerando la salud del suelo urbano y desviándolos de rellenos sanitarios.</p>
-                </div>
+        <h2 class="section-title" style="margin-bottom: 15px;">Dos Ciclos Regenerativos Integrados</h2>
+        <p style="font-size: 1.2em; max-width: 900px; margin-bottom: 15px; z-index: 10; position: relative;">Operamos bajo el arquetipo de regeneración de la naturaleza (Das & Bocken, 2024)</p>
+        <div class="slide5-content-wrapper">
+            <div class="diagram-container">
+                <img src="imagen-diagrama.jpeg" alt="Diagrama de Ciclos Regenerativos">
             </div>
             <div class="infinity-symbol">∞</div>
-            <div class="cycle cycle-circle">
-                <div class="cycle-content">
-                    <div class="cycle-number">2</div>
-                    <h3 style="color: #fff; font-size: 1.6em; margin-bottom: 15px;">Ciclo Biológico</h3>
-                    <p style="font-size: 1.1em; color: rgba(255,255,255,0.95); line-height: 1.6;">Activamos el ciclo biológico con especies exclusivas del bosque altoandino, seleccionadas para atraer polinizadores nativos y restaurar la conectividad ecológica perdida en la ciudad.</p>
-                </div>
-            </div>
         </div>
-        <p style="font-size: 1.2em; margin-top: 30px; z-index: 10; position: relative; opacity: 0.9; max-width: 900px;">Ambos ciclos operan simultáneamente, integrando economía circular con restauración de biodiversidad</p>
+        <p style="font-size: 1.1em; margin-top: 15px; z-index: 10; position: relative; opacity: 0.9; max-width: 850px;">Ambos ciclos operan simultáneamente, integrando economía circular con restauración de biodiversidad</p>
     </div>
 
     <!-- Slide 6: Beneficios Ambientales -->
@@ -1721,8 +1696,30 @@
         </div>
     </div>
 
-    <!-- Slide 14: Cierre -->
+    <!-- Slide 14: Referencias -->
     <div class="slide" id="slide14">
+        <h2 class="section-title">Referencias</h2>
+        <div style="max-width: 1200px; text-align: left; margin-top: 60px; position: relative; z-index: 10;">
+            <div style="background: rgba(255,255,255,0.1); padding: 35px 45px; border-radius: 20px; margin-bottom: 25px; backdrop-filter: blur(10px);">
+                <p style="font-size: 1.3em; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Organización de las Naciones Unidas para la Alimentación y la Agricultura (FAO).</strong> (2019). <em>El estado mundial de la agricultura y la alimentación: Avanzando en la lucha contra la pérdida y el desperdicio de alimentos</em>. Roma.
+                </p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 35px 45px; border-radius: 20px; margin-bottom: 25px; backdrop-filter: blur(10px);">
+                <p style="font-size: 1.3em; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Departamento Administrativo de la Defensoría del Espacio Público de Bogotá (DADEP).</strong> (2020). <em>Inventario de espacio público efectivo de Bogotá</em>. Bogotá, Colombia.
+                </p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 35px 45px; border-radius: 20px; backdrop-filter: blur(10px);">
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    <strong>MDPI.</strong> (2020). Rooftop Green Spaces in Urban Areas: A Systematic Review of Potential and Planning Strategies. <em>Sustainability</em>, 12(20), 8355.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 15: Cierre -->
+    <div class="slide" id="slide15">
         <canvas id="fireworks-canvas"></canvas>
         <div class="floating-plants">
             <div class="celebration-emoji">🎉</div>
@@ -1739,7 +1736,7 @@
 
     <!-- Navegación -->
     <div class="progress-bar" id="progressBar"></div>
-    <div class="slide-number" id="slideNumber">1 / 14</div>
+    <div class="slide-number" id="slideNumber">1 / 15</div>
     
     <div class="controls">
         <button id="prevBtn" onclick="previousSlide()">← Anterior</button>
@@ -1748,7 +1745,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 14;
+        const totalSlides = 15;
 
         // Particles animation for slide 1
         function initParticles() {
@@ -1859,7 +1856,7 @@
             drawNetwork();
         }
 
-        // Fireworks for slide 14
+        // Fireworks for slide 15
         function initFireworks() {
             const canvas = document.getElementById('fireworks-canvas');
             if (!canvas) return;
@@ -1937,7 +1934,7 @@
                 setTimeout(animateCounters, 300);
             } else if (currentSlide === 10) {
                 setTimeout(initNetwork, 100);
-            } else if (currentSlide === 14) {
+            } else if (currentSlide === 15) {
                 setTimeout(initFireworks, 100);
             }
             
